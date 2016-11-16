@@ -40,6 +40,12 @@ public class ResponseTask {
                 }
 			}
 		} catch (IOException ex){
+			Thread currentThread = Thread.currentThread();
+			if(currentThread instanceof ResponderThread){
+				ResponderThread requestThread = (ResponderThread)currentThread;
+				System.out.println("Changing state of " +requestThread.getName()+ " thread from "+requestThread.getRunnbingStatus()+" to "+ResponderThread.STATUS_AVAILABLE);
+				requestThread.setRunningStatus(ResponderThread.STATUS_AVAILABLE);
+			}
 			System.out.println("Error trying to receive/send data from/to client.");
 		}
 	}
